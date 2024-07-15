@@ -16,7 +16,7 @@ path.subscribe((newPath) => {
 
 export const pages: Route[] = [
   {
-    name: "Home",
+    name: "passive aggressive",
     path: "/",
     component: Home,
   },

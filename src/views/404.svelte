@@ -1,6 +1,15 @@
+<script>
+  import Button from "@components/Button.svelte";
+  import { goTo } from "@stores/routes";
+
+  $: console.log(`404 page\nhref: ${window.location.href}`);
+</script>
+
 <section class="center">
   <h1>404</h1>
   <p>Page not found</p>
+
+  <Button on:click={() => goTo("/")}>HOME</Button>
 </section>
 
 <style>

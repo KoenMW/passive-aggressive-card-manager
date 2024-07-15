@@ -8,7 +8,7 @@
 <div class="card" style="--colour: {getColour(card.cardType.type)};">
   <p>
     <CardTypeSelect
-      cardType={card.cardType}
+      cardType={card.cardType.type}
       names={["Mystery", "curse"]}
       on:change={({ detail }) => (card.cardType.type = detail)}
     />

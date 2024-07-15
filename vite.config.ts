@@ -5,6 +5,7 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte()],
+  base: "/passive-aggressive-card-manager",
   resolve: {
     alias: {
       "@stores": path.resolve(__dirname, "./src/stores"),

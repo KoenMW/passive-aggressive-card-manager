@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 import type { card } from "@core/types";
 
 const gun: IGunInstance = Gun({
-  peers: ["http://gun-manhattan.herokuapp.com/gun"],
+  peers: ["wss://gun-manhattan.herokuapp.com/gun"],
 });
 
 const cardStore = gun.get("cards");

@@ -22,7 +22,7 @@
     "Deck",
     "Movement",
     "Mystery",
-    "curse",
+    "Curse",
   ];
 
   $: backgroundColour = getColour(cardType);

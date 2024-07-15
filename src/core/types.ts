@@ -1,5 +1,5 @@
 export type cardNames =
-  | "curse"
+  | "Curse"
   | "Deck"
   | "Movement"
   | "Change"
@@ -13,7 +13,7 @@ export type cardType = {
 
 export const getColour = (card: cardNames): string => {
   switch (card) {
-    case "curse":
+    case "Curse":
       return "#DC77FF";
     case "Deck":
       return "#8995D5";
@@ -31,22 +31,7 @@ export const getColour = (card: cardNames): string => {
 };
 
 export const getSVG = (card: cardNames): string => {
-  switch (card) {
-    case "curse":
-      return "Curse.svg";
-    case "Deck":
-      return "Deck.svg";
-    case "Movement":
-      return "Movement.svg";
-    case "Change":
-      return "Change.svg";
-    case "Mystery":
-      return "Mystery.svg";
-    case "Board":
-      return "Board.svg";
-    default:
-      return "Blank.svg";
-  }
+  return `${card}.svg`;
 };
 
 export type cardHalf = {

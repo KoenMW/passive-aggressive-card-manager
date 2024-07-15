@@ -1,84 +1,45 @@
 <script lang="ts">
   import Button from "@components/Button.svelte";
   import Card from "@components/card.svelte";
-  import type { card } from "@core/types";
-
-  let cards: card[] = [
-    {
-      cardHalf1: {
-        cardType: {
-          passive: true,
-          type: "Board",
-        },
-        text: "This is a passive card. some larger text to test some things",
-      },
-      cardHalf2: {
-        cardType: {
-          passive: false,
-          type: "Change",
-        },
-        text: "This is an active card",
-      },
-    },
-    {
-      cardHalf1: {
-        cardType: {
-          passive: true,
-          type: "curse",
-        },
-        text: "this is a curse card",
-      },
-      cardHalf2: undefined,
-    },
-  ];
-
-  const twosided: card = {
-    cardHalf1: {
-      cardType: {
-        passive: true,
-        type: "Deck",
-      },
-      text: "placeholder",
-    },
-    cardHalf2: {
-      cardType: {
-        passive: false,
-        type: "Movement",
-      },
-      text: "placeholder",
-    },
-  };
-
-  const onesided: card = {
-    cardHalf1: {
-      cardType: {
-        passive: true,
-        type: "Mystery",
-      },
-      text: "placeholder",
-    },
-    cardHalf2: undefined,
-  };
+  import { createCard } from "@core/types";
+  import { cards, setCards } from "@stores/card";
 </script>
 
-<Button
-  on:click={() => {
-    cards = [...cards, twosided];
-    console.log(cards.length);
-  }}>add two sided</Button
->
+<section class="button-container">
+  <Button
+    on:click={() => {
+      cards.set([...$cards, createCard(2)]);
+    }}
+    colour="blue">add two sided</Button
+  >
 
-<Button
-  on:click={() => {
-    cards = [...cards, onesided];
-    console.log(cards.length);
-  }}>add one sided</Button
->
+  <Button
+    on:click={() => {
+      cards.set([...$cards, createCard(1)]);
+      console.log($cards.length);
+    }}
+    colour="blue">add one sided</Button
+  >
+
+  <Button
+    on:click={() => {
+      setCards($cards);
+    }}>save</Button
+  >
+</section>
 
 <h1>cards</h1>
 <section class="container">
-  {#each cards as c}
-    <Card card={c} />
+  {#each $cards as c}
+    <div class="wrapper">
+      <Card card={c} />
+      <Button
+        on:click={() => {
+          setCards($cards.filter((card) => card.id !== c.id));
+        }}
+        colour="red">remove</Button
+      >
+    </div>
   {/each}
 </section>
 
@@ -88,5 +49,23 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-container {
+    padding: 1em;
+    width: 100%;
+    background-color: #242424;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 </style>

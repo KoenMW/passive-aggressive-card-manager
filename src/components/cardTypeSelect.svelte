@@ -1,8 +1,16 @@
 <script lang="ts">
-  import { type cardNames, getColour, getSVG } from "@core/types";
+  import {
+    type cardNames,
+    type cardType,
+    getColour,
+    getSVG,
+  } from "@core/types";
   import { createEventDispatcher } from "svelte";
 
   export let cardType: cardNames;
+
+  export let passive: boolean = false;
+  const id = Math.random().toString(36).substring(7);
 
   const dispatch = createEventDispatcher();
 
@@ -19,7 +27,8 @@
 
   $: backgroundColour = getColour(cardType);
 
-  $: dispatch("change", cardType);
+  $: dispatch("type", cardType);
+  $: dispatch("passive", passive);
 </script>
 
 <div class="select">
@@ -51,6 +60,11 @@
   {/if}
 </div>
 
+<input type="checkbox" {id} bind:checked={passive} class="hidden" />
+<label for={id} class="passive no-select {passive ? '' : 'invisible'}"
+  >Passive</label
+>
+
 <style lang="scss">
   .select {
     width: 30px;
@@ -69,5 +83,11 @@
     flex-direction: column;
     width: min-content;
     background-color: var(--colour);
+  }
+
+  .passive {
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
   }
 </style>

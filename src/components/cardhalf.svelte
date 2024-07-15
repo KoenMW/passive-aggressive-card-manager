@@ -1,6 +1,5 @@
 <script lang="ts">
   import { getColour, type cardHalf } from "@core/types";
-  import CardTypeSelect from "./cardTypeSelect.svelte";
 
   export let card: cardHalf;
   export let rotation: number = 0;

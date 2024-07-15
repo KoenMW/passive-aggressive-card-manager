@@ -20,10 +20,9 @@
 <style lang="scss">
   .card {
     position: relative;
-    --shape: polygon(0% 0%, 50% 0%, 100% 6.6%, 100% 100%, 50% 100%, 0% 93.4%);
     color: black;
     background-color: var(--colour);
-    clip-path: var(--shape);
+    clip-path: var(--shapeWhole);
     padding: 14px;
     width: 166px;
     height: 264px;
@@ -39,7 +38,7 @@
       left: 7px;
       width: 180px;
       height: 278px;
-      clip-path: var(--shape);
+      clip-path: var(--shapeWhole);
       background-color: black;
       z-index: -2;
     }
@@ -51,7 +50,7 @@
       left: 14px;
       width: 166px;
       height: 264px;
-      clip-path: var(--shape);
+      clip-path: var(--shapeWhole);
       background-color: var(--colour);
       z-index: -1;
     }

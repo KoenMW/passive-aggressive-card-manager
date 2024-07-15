@@ -6,21 +6,37 @@
 
 <style lang="scss">
   .button {
-    background-color: #1f6422;
+    clip-path: var(--shapeWhole);
+    background-color: #17da20;
     border: none;
-    color: white;
-    padding: 15px 32px;
+    color: black;
+    padding: 1em 2em;
     text-align: center;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
+
+    transition: all 0.1s ease;
+
+    &:hover {
+      color: white;
+      background-color: #105c15;
+      clip-path: var(--shapeWholeReverse);
+    }
   }
 
   .red {
-    background-color: #f44336;
+    background-color: #ca2418;
+
+    &:hover {
+      background-color: #8f1c0f;
+    }
   }
 
   .blue {
     background-color: #2196f3;
+
+    &:hover {
+      background-color: #0f5288;
+    }
   }
 </style>

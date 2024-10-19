@@ -12,9 +12,6 @@
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
     download = !!params.get("download");
-    if (download) {
-      document.body.classList.add("print");
-    }
   });
 </script>
 

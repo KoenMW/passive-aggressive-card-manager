@@ -29,10 +29,11 @@ body {
   min-height: 100vh;
 }
 
-.print {
-  background-color: white;
+@media print {
+  :root {
+    background-color: white;
+  }
 }
-
 
 #app {
   max-width: 1280px;

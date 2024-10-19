@@ -1,15 +1,20 @@
 <script lang="ts">
-  import { getColour, type cardHalf } from "@core/types";
+  import { getColour, getSVG, type cardHalf } from "@core/types";
 
   export let card: cardHalf;
   export let rotation: number = 0;
+  export let back: boolean = false;
 
   $: backgroundColour = getColour(card.cardType.type);
 </script>
 
 <div class="wrapper" style=" --rotation: {rotation}deg">
   <div class="card" style="--colour: {backgroundColour};">
-    <div contenteditable="true" class="cardText" bind:innerText={card.text} />
+    {#if back}
+      <img src={getSVG(card.cardType.type)} alt="My Icon" class="cardIcon" />
+    {:else}
+      <div contenteditable="true" class="cardText" bind:innerText={card.text} />
+    {/if}
   </div>
 </div>
 
@@ -18,6 +23,7 @@
     position: relative;
     transform: rotate(var(--rotation));
     width: min-content;
+    height: 146px;
   }
 
   .card {
@@ -72,5 +78,12 @@
         outline: none;
       }
     }
+  }
+
+  .cardIcon {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    object-fit: contain;
   }
 </style>

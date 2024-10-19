@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'MAIAN';
-  src: url('./fonts/MAIAN.TTF') format('truetype');
+  src: url('/fonts/MAIAN.TTF') format('truetype');
   
 }
 
@@ -27,6 +27,10 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+.print {
+  background-color: white;
 }
 
 

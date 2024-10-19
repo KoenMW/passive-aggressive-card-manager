@@ -5,9 +5,10 @@
   import CardTypeSelect from "./cardTypeSelect.svelte";
 
   export let card: card;
+  export let back: boolean = false;
 </script>
 
-<div class="card">
+<div class={`card ${back && "back"}`}>
   {#if card.cardHalf2}
     <p class="first">
       <CardTypeSelect
@@ -15,10 +16,11 @@
         passive={card.cardHalf1.cardType.passive}
         on:type={({ detail }) => (card.cardHalf1.cardType.type = detail)}
         on:passive={({ detail }) => (card.cardHalf1.cardType.passive = detail)}
+        {back}
       />
     </p>
-    <Cardhalf card={card.cardHalf1} />
-    <Cardhalf card={card.cardHalf2} rotation={180} />
+    <Cardhalf card={card.cardHalf1} {back} />
+    <Cardhalf card={card.cardHalf2} rotation={180} {back} />
     <p class="second">
       <CardTypeSelect
         cardType={card.cardHalf2.cardType.type}
@@ -29,10 +31,11 @@
         on:passive={({ detail }) => {
           if (card.cardHalf2) card.cardHalf2.cardType.passive = detail;
         }}
+        {back}
       />
     </p>
   {:else}
-    <Cardwhole card={card.cardHalf1} />
+    <Cardwhole card={card.cardHalf1} {back} />
   {/if}
 </div>
 
@@ -40,6 +43,7 @@
   .card {
     position: relative;
     width: min-content;
+    height: 292px;
   }
 
   .first {
@@ -60,5 +64,9 @@
     align-items: flex-start;
     z-index: 3;
     color: black;
+  }
+
+  .back {
+    transform: scaleX(-1);
   }
 </style>

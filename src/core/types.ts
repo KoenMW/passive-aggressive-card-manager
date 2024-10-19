@@ -31,6 +31,10 @@ export const getColour = (card: cardNames): string => {
 };
 
 export const getSVG = (card: cardNames): string => {
+  if (window.location.href.includes("localhost")) {
+    return `${window.location.href}/${card}.svg`;
+  }
+
   return `${card}.svg`;
 };
 

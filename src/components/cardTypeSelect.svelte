@@ -1,15 +1,12 @@
 <script lang="ts">
-  import {
-    type cardNames,
-    type cardType,
-    getColour,
-    getSVG,
-  } from "@core/types";
+  import { type cardNames, getColour, getSVG } from "@core/types";
+  import exp from "constants";
   import { createEventDispatcher } from "svelte";
 
   export let cardType: cardNames;
 
   export let passive: boolean = false;
+  export let back: boolean = false;
   const id = Math.random().toString(36).substring(7);
 
   const dispatch = createEventDispatcher();
@@ -31,39 +28,41 @@
   $: dispatch("passive", passive);
 </script>
 
-<div class="select">
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-  <img
-    src={getSVG(cardType)}
-    alt="My Icon"
-    class="cardIcon"
-    on:click={() => (toggle = !toggle)}
-  />
+{#if !back}
+  <div class="select">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <img
+      src={getSVG(cardType)}
+      alt="My Icon"
+      class="cardIcon"
+      on:click={() => (toggle = !toggle)}
+    />
 
-  {#if toggle}
-    <div class="options" style="--colour: {backgroundColour}">
-      {#each names as name}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <img
-          src={getSVG(name)}
-          alt="My Icon"
-          class="cardIcon {cardType === name ? 'hidden' : ''}"
-          on:click={() => {
-            cardType = name;
-            toggle = false;
-          }}
-        />
-      {/each}
-    </div>
-  {/if}
-</div>
+    {#if toggle}
+      <div class="options" style="--colour: {backgroundColour}">
+        {#each names as name}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+          <img
+            src={getSVG(name)}
+            alt="My Icon"
+            class="cardIcon {cardType === name ? 'hidden' : ''}"
+            on:click={() => {
+              cardType = name;
+              toggle = false;
+            }}
+          />
+        {/each}
+      </div>
+    {/if}
+  </div>
 
-<input type="checkbox" {id} bind:checked={passive} class="hidden" />
-<label for={id} class="passive no-select {passive ? '' : 'invisible'}"
-  >Passive</label
->
+  <input type="checkbox" {id} bind:checked={passive} class="hidden" />
+  <label for={id} class="passive no-select {passive ? '' : 'invisible'}"
+    >Passive</label
+  >
+{/if}
 
 <style lang="scss">
   .select {

@@ -1,20 +1,25 @@
 <script lang="ts">
-  import { getColour, type cardHalf } from "@core/types";
+  import { getColour, getSVG, type cardHalf } from "@core/types";
   import CardTypeSelect from "./cardTypeSelect.svelte";
 
   export let card: cardHalf;
+  export let back: boolean = false;
 </script>
 
 <div class="card" style="--colour: {getColour(card.cardType.type)};">
-  <p>
-    <CardTypeSelect
-      cardType={card.cardType.type}
-      passive={card.cardType.passive}
-      names={["Mystery", "Curse"]}
-      on:type={({ detail }) => (card.cardType.type = detail)}
-    />
-  </p>
-  <div contenteditable="true" class="cardText" bind:innerText={card.text} />
+  {#if !back}
+    <p>
+      <CardTypeSelect
+        cardType={card.cardType.type}
+        passive={card.cardType.passive}
+        names={["Mystery", "Curse"]}
+        on:type={({ detail }) => (card.cardType.type = detail)}
+      />
+    </p>
+    <div contenteditable="true" class="cardText" bind:innerText={card.text} />
+  {:else}
+    <img src={getSVG(card.cardType.type)} alt="My Icon" class="cardIcon" />
+  {/if}
 </div>
 
 <style lang="scss">
@@ -76,5 +81,13 @@
         outline: none;
       }
     }
+  }
+
+  .cardIcon {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    object-fit: contain;
+    rotate: 90deg;
   }
 </style>

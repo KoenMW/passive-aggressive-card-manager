@@ -20,6 +20,7 @@
     "Movement",
     "Mystery",
     "Curse",
+    "Starter",
   ];
 
   $: backgroundColour = getColour(cardType);

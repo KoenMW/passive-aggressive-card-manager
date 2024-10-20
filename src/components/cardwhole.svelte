@@ -12,7 +12,7 @@
       <CardTypeSelect
         cardType={card.cardType.type}
         passive={card.cardType.passive}
-        names={["Mystery", "Curse"]}
+        names={["Mystery", "Curse", "Starter"]}
         on:type={({ detail }) => (card.cardType.type = detail)}
       />
     </p>

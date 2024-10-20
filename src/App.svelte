@@ -86,7 +86,7 @@
     >
   </section>
 
-  <h1>cards {$cards.length}</h1>
+  <h1>cards {filteredCards.length}</h1>
   <section class="container">
     {#each filteredCards as c}
       <div class="wrapper">

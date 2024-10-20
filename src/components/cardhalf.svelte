@@ -12,6 +12,9 @@
   <div class="card" style="--colour: {backgroundColour};">
     {#if back}
       <img src={getSVG(card.cardType.type)} alt="My Icon" class="cardIcon" />
+      {#if card.cardType.passive}
+        <p>Passive</p>
+      {/if}
     {:else}
       <div contenteditable="true" class="cardText" bind:innerText={card.text} />
     {/if}

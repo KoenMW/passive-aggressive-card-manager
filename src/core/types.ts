@@ -4,8 +4,8 @@ export type cardNames =
   | "Movement"
   | "Change"
   | "Mystery"
-  | "Board";
-
+  | "Board"
+  | "Starter";
 export type cardType = {
   type: cardNames;
   passive: boolean;
@@ -25,6 +25,8 @@ export const getColour = (card: cardNames): string => {
       return "#F35555";
     case "Board":
       return "#88F355";
+    case "Starter":
+      return "#AFE2EA";
     default:
       return "#FFFFFF";
   }

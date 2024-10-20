@@ -13,7 +13,7 @@
     {#if back}
       <img src={getSVG(card.cardType.type)} alt="My Icon" class="cardIcon" />
       {#if card.cardType.passive}
-        <p>Passive</p>
+        <p class="mirrored">Passive</p>
       {/if}
     {:else}
       <div contenteditable="true" class="cardText" bind:innerText={card.text} />
@@ -88,5 +88,9 @@
     height: 50%;
     margin: auto;
     object-fit: contain;
+  }
+
+  .mirrored {
+    transform: scaleX(-1);
   }
 </style>

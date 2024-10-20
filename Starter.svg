@@ -1,0 +1,6 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M47 2V47H2L47 2Z" fill="black"/>
+<path d="M98 47L53 47L53 2L98 47Z" fill="black"/>
+<path d="M2 53H47V98L2 53Z" fill="black"/>
+<path d="M53 98V53H98L53 98Z" fill="black"/>
+</svg>

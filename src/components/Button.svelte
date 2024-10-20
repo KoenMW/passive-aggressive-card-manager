@@ -14,6 +14,7 @@
     text-align: center;
     font-size: 16px;
     cursor: pointer;
+    height: min-content;
 
     transition: all 0.1s ease;
 

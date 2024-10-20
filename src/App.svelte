@@ -1,13 +1,33 @@
 <script lang="ts">
   import Button from "@components/Button.svelte";
   import Card from "@components/card.svelte";
-  import { createCard } from "@core/types";
+  import CardTypeSelect from "@components/cardTypeSelect.svelte";
+  import {
+    createCard,
+    getColour,
+    type card,
+    type cardNames,
+  } from "@core/types";
   import { chunkArray } from "@core/utils";
   import { cards, downloadJson, setCards, uploadJson } from "@stores/card";
   import { onMount } from "svelte";
 
   let pages: HTMLElement;
   let download: boolean;
+  let currentFilter: cardNames = "None";
+
+  const filterCards = (cards: card[], filter: cardNames): card[] => {
+    if (filter === "None") return cards;
+    return cards.filter(
+      (card) =>
+        card.cardHalf1.cardType.type === filter ||
+        (card.cardHalf2 && card.cardHalf2.cardType.type === filter)
+    );
+  };
+
+  $: filterColour = getColour(currentFilter);
+
+  $: filteredCards = filterCards($cards, currentFilter);
 
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
@@ -17,6 +37,24 @@
 
 {#if !download}
   <section class="button-container">
+    <div class="select-wrapper" style="background-color: {filterColour};">
+      <CardTypeSelect
+        cardType={currentFilter}
+        on:type={({ detail }) => (currentFilter = detail)}
+        names={[
+          "None",
+          "Movement",
+          "Mystery",
+          "Curse",
+          "Starter",
+          "Board",
+          "Change",
+          "Deck",
+        ]}
+        noPassive
+      />
+    </div>
+
     <Button
       on:click={() => {
         cards.set([...$cards, createCard(2)]);
@@ -37,7 +75,6 @@
         setCards($cards);
       }}>save</Button
     >
-
     <Button on:click={uploadJson}>import JSON</Button>
     <Button on:click={downloadJson}>export JSON</Button>
     <Button
@@ -49,9 +86,9 @@
     >
   </section>
 
-  <h1>cards</h1>
+  <h1>cards {$cards.length}</h1>
   <section class="container">
-    {#each $cards as c}
+    {#each filteredCards as c}
       <div class="wrapper">
         <Card card={c} />
         <Button
@@ -117,5 +154,13 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+  }
+
+  .select-wrapper {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
   }
 </style>

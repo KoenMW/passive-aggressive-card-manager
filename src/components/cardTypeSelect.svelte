@@ -7,6 +7,7 @@
 
   export let passive: boolean = false;
   export let back: boolean = false;
+  export let noPassive: boolean = false;
   const id = Math.random().toString(36).substring(7);
 
   const dispatch = createEventDispatcher();
@@ -59,10 +60,12 @@
     {/if}
   </div>
 
-  <input type="checkbox" {id} bind:checked={passive} class="hidden" />
-  <label for={id} class="passive no-select {passive ? '' : 'invisible'}"
-    >Passive</label
-  >
+  {#if !noPassive}
+    <input type="checkbox" {id} bind:checked={passive} class="hidden" />
+    <label for={id} class="passive no-select {passive ? '' : 'invisible'}"
+      >Passive</label
+    >
+  {/if}
 {/if}
 
 <style lang="scss">

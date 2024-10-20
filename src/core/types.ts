@@ -5,7 +5,8 @@ export type cardNames =
   | "Change"
   | "Mystery"
   | "Board"
-  | "Starter";
+  | "Starter"
+  | "None";
 export type cardType = {
   type: cardNames;
   passive: boolean;

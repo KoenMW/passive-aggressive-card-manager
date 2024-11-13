@@ -93,4 +93,8 @@
   .mirrored {
     transform: scaleX(-1);
   }
+
+  * {
+    border: none;
+  }
 </style>

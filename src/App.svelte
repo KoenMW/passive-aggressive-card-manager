@@ -148,6 +148,7 @@
   .page {
     width: 21cm;
     height: 29.7cm;
+    margin-bottom: 3cm;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;

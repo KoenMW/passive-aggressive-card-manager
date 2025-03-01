@@ -90,7 +90,7 @@
   <section class="container">
     {#each filteredCards as c}
       <div class="wrapper">
-        <Card card={c} />
+        <Card card={c} readable />
         <Button
           on:click={() => {
             setCards($cards.filter((card) => card.id !== c.id));

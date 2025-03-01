@@ -6,6 +6,7 @@
 
   export let card: card;
   export let back: boolean = false;
+  export let readable: boolean = false;
 
   $: fillColour = getColour(card.cardHalf1.cardType.type);
 </script>
@@ -26,7 +27,7 @@
       <Cardhalf card={card.cardHalf1} {back} />
     </div>
     <div class="second-half half">
-      <Cardhalf card={card.cardHalf2} rotation={180} {back} />
+      <Cardhalf card={card.cardHalf2} rotation={readable ? 0 : 180} {back} />
       <p class="second">
         <CardTypeSelect
           cardType={card.cardHalf2.cardType.type}

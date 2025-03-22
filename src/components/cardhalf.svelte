@@ -4,6 +4,7 @@
   export let card: cardHalf;
   export let rotation: number = 0;
   export let back: boolean = false;
+  export let editable: boolean = true;
 
   $: backgroundColour = getColour(card.cardType.type);
 </script>
@@ -15,8 +16,12 @@
       {#if card.cardType.passive}
         <p class="mirrored">Passive</p>
       {/if}
-    {:else}
+    {:else if editable}
       <div contenteditable="true" class="cardText" bind:innerText={card.text} />
+    {:else}
+      <div class="cardText">
+        {card.text}
+      </div>
     {/if}
   </div>
 </div>

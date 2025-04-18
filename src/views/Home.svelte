@@ -13,10 +13,15 @@
   import { route } from "@stores/router";
 
   let currentFilter: cardNames = "None";
-
   let stringFilter: string = "";
+  let filterPassive: boolean = false;
 
-  $: filteredCards = filterCards($cards, currentFilter, stringFilter);
+  $: filteredCards = filterCards(
+    $cards,
+    currentFilter,
+    stringFilter,
+    filterPassive
+  );
 
   const checkStringFilter = (card: card, stringFilter: string) => {
     stringFilter = stringFilter.toLocaleLowerCase();
@@ -28,21 +33,32 @@
     );
   };
 
+  const checkPassive = (card: card, passiveFilter: boolean) => {
+    console.log("filtering passive: ", passiveFilter);
+    return (
+      !passiveFilter ||
+      card.cardHalf1.cardType.passive ||
+      (card.cardHalf2 && card.cardHalf2.cardType.passive)
+    );
+  };
+
   const filterCards = (
     cards: card[],
     filter: cardNames,
-    stringFilter: string
+    stringFilter: string,
+    passiveFilter: boolean
   ): card[] => {
     return cards.filter(
       (card) =>
         (card.cardHalf1.cardType.type === filter ||
           filter === "None" ||
           (card.cardHalf2 && card.cardHalf2.cardType.type === filter)) &&
-        checkStringFilter(card, stringFilter)
+        checkStringFilter(card, stringFilter) &&
+        checkPassive(card, passiveFilter)
     );
   };
 
-  $: console.log(stringFilter);
+  $: console.log(filterPassive);
 </script>
 
 <section class="button-container">
@@ -85,6 +101,14 @@
 <h1>cards {filteredCards.length}</h1>
 <div class="filter">
   search filter: <input type="text" bind:value={stringFilter} />
+
+  <label for="filter-passive">filter passive:</label>
+  <input
+    type="checkbox"
+    name="filter-passive"
+    id="filter-passive"
+    bind:checked={filterPassive}
+  />
 </div>
 <section class="container">
   {#each filteredCards as c}

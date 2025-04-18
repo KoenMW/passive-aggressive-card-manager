@@ -1,8 +1,10 @@
 <script lang="ts">
+  import Button from "@components/Button.svelte";
   import CardFilter from "@components/CardFilter.svelte";
   import Cardhalf from "@components/cardhalf.svelte";
   import { type cardNames } from "@core/types";
   import { cards } from "@stores/card";
+  import { route } from "@stores/router";
 
   let currentFilter: cardNames = "None";
   let sortPassives: boolean = false;
@@ -20,13 +22,19 @@
     })
     .sort((a, b) => {
       if (!sortPassives) return 0;
-      return Number(a.cardType.passive) - Number(b.cardType.passive);
+      return -Number(a.cardType.passive) - Number(b.cardType.passive);
     });
 </script>
 
-<section>
+<header>
+  <Button
+    on:click={() => {
+      route.set("");
+    }}>home</Button
+  >
   <CardFilter bind:currentFilter />
-
+</header>
+<section>
   <label for="passive">sort passive</label>
   <input
     type="checkbox"
@@ -56,5 +64,11 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
   }
 </style>

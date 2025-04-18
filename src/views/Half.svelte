@@ -22,8 +22,6 @@
       if (!sortPassives) return 0;
       return Number(a.cardType.passive) - Number(b.cardType.passive);
     });
-
-  $: console.log(halves);
 </script>
 
 <section>

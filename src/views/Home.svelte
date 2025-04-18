@@ -9,6 +9,7 @@
     createCard,
     type card,
   } from "@core/types";
+  import { checkPassiveFilter, checkStringFilter } from "@core/utils";
   import { cards, setCards, uploadJson, downloadJson } from "@stores/card";
   import { route } from "@stores/router";
 
@@ -23,24 +24,6 @@
     filterPassive
   );
 
-  const checkStringFilter = (card: card, stringFilter: string) => {
-    stringFilter = stringFilter.toLocaleLowerCase();
-    return (
-      !stringFilter ||
-      card.cardHalf1.text.toLocaleLowerCase().includes(stringFilter) ||
-      (card.cardHalf2 &&
-        card.cardHalf2.text.toLocaleLowerCase().includes(stringFilter))
-    );
-  };
-
-  const checkPassive = (card: card, passiveFilter: boolean) => {
-    return (
-      !passiveFilter ||
-      card.cardHalf1.cardType.passive ||
-      (card.cardHalf2 && card.cardHalf2.cardType.passive)
-    );
-  };
-
   const filterCards = (
     cards: card[],
     filter: cardNames,
@@ -49,11 +32,11 @@
   ): card[] => {
     return cards.filter(
       (card) =>
-        (card.cardHalf1.cardType.type === filter ||
-          filter === "None" ||
+        (filter === "None" ||
+          card.cardHalf1.cardType.type === filter ||
           (card.cardHalf2 && card.cardHalf2.cardType.type === filter)) &&
         checkStringFilter(card, stringFilter) &&
-        checkPassive(card, passiveFilter)
+        checkPassiveFilter(card, passiveFilter)
     );
   };
 </script>

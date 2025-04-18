@@ -17,3 +17,21 @@ export const chunkArray = <T = card>(array: T[], size: number = 9): T[][] => {
   }
   return chunked_arr;
 };
+
+export const checkStringFilter = (card: card, stringFilter: string) => {
+  stringFilter = stringFilter.toLocaleLowerCase();
+  return (
+    !stringFilter ||
+    card.cardHalf1.text.toLocaleLowerCase().includes(stringFilter) ||
+    (card.cardHalf2 &&
+      card.cardHalf2.text.toLocaleLowerCase().includes(stringFilter))
+  );
+};
+
+export const checkPassiveFilter = (card: card, passiveFilter: boolean) => {
+  return (
+    !passiveFilter ||
+    card.cardHalf1.cardType.passive ||
+    (card.cardHalf2 && card.cardHalf2.cardType.passive)
+  );
+};

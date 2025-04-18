@@ -7,7 +7,8 @@
   import { route } from "@stores/router";
 
   let currentFilter: cardNames = "None";
-  let sortPassives: boolean = false;
+  let stringFilter: string = "";
+  let filterPassive: boolean = false;
 
   $: halves = $cards
     .map((card) => {
@@ -17,12 +18,14 @@
     })
     .flat()
     .filter((half) => {
-      if (currentFilter === "None") return half;
-      if (half.cardType.type === currentFilter) return half;
-    })
-    .sort((a, b) => {
-      if (!sortPassives) return 0;
-      return -Number(a.cardType.passive) - Number(b.cardType.passive);
+      return (
+        ((currentFilter === "None" || half.cardType.type === currentFilter) &&
+          half.text
+            .toLocaleLowerCase()
+            .includes(stringFilter.toLocaleLowerCase()) &&
+          !filterPassive) ||
+        half.cardType.passive
+      );
     });
 </script>
 
@@ -35,17 +38,17 @@
   <CardFilter bind:currentFilter />
 </header>
 {currentFilter}: {halves.length}
-<section>
-  <label for="passive"
-    >{sortPassives ? "stop sorting passive" : "sort passive"}</label
-  >
+<div class="filter">
+  search filter: <input type="text" bind:value={stringFilter} />
+
+  <label for="filter-passive">filter passive:</label>
   <input
     type="checkbox"
-    name="passive"
-    id="passive"
-    bind:checked={sortPassives}
+    name="filter-passive"
+    id="filter-passive"
+    bind:checked={filterPassive}
   />
-</section>
+</div>
 
 <section class="container">
   {#each halves as half}
@@ -58,10 +61,6 @@
 </section>
 
 <style>
-  input[type="checkbox"] {
-    display: none;
-  }
-
   .container {
     display: flex;
     flex-wrap: wrap;

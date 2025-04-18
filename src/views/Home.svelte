@@ -14,16 +14,35 @@
 
   let currentFilter: cardNames = "None";
 
-  $: filteredCards = filterCards($cards, currentFilter);
+  let stringFilter: string = "";
 
-  const filterCards = (cards: card[], filter: cardNames): card[] => {
-    if (filter === "None") return cards;
-    return cards.filter(
-      (card) =>
-        card.cardHalf1.cardType.type === filter ||
-        (card.cardHalf2 && card.cardHalf2.cardType.type === filter)
+  $: filteredCards = filterCards($cards, currentFilter, stringFilter);
+
+  const checkStringFilter = (card: card, stringFilter: string) => {
+    stringFilter = stringFilter.toLocaleLowerCase();
+    return (
+      !stringFilter ||
+      card.cardHalf1.text.toLocaleLowerCase().includes(stringFilter) ||
+      (card.cardHalf2 &&
+        card.cardHalf2.text.toLocaleLowerCase().includes(stringFilter))
     );
   };
+
+  const filterCards = (
+    cards: card[],
+    filter: cardNames,
+    stringFilter: string
+  ): card[] => {
+    return cards.filter(
+      (card) =>
+        (card.cardHalf1.cardType.type === filter ||
+          filter === "None" ||
+          (card.cardHalf2 && card.cardHalf2.cardType.type === filter)) &&
+        checkStringFilter(card, stringFilter)
+    );
+  };
+
+  $: console.log(stringFilter);
 </script>
 
 <section class="button-container">
@@ -64,6 +83,9 @@
 </section>
 
 <h1>cards {filteredCards.length}</h1>
+<div class="filter">
+  search filter: <input type="text" bind:value={stringFilter} />
+</div>
 <section class="container">
   {#each filteredCards as c}
     <div class="wrapper">
@@ -102,5 +124,9 @@
     position: sticky;
     top: 0;
     z-index: 10;
+  }
+
+  .filter {
+    padding: 1rem;
   }
 </style>

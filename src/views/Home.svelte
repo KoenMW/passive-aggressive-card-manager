@@ -34,7 +34,6 @@
   };
 
   const checkPassive = (card: card, passiveFilter: boolean) => {
-    console.log("filtering passive: ", passiveFilter);
     return (
       !passiveFilter ||
       card.cardHalf1.cardType.passive ||
@@ -57,8 +56,6 @@
         checkPassive(card, passiveFilter)
     );
   };
-
-  $: console.log(filterPassive);
 </script>
 
 <section class="button-container">

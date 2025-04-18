@@ -34,8 +34,11 @@
   >
   <CardFilter bind:currentFilter />
 </header>
+{currentFilter}: {halves.length}
 <section>
-  <label for="passive">sort passive</label>
+  <label for="passive"
+    >{sortPassives ? "stop sorting passive" : "sort passive"}</label
+  >
   <input
     type="checkbox"
     name="passive"

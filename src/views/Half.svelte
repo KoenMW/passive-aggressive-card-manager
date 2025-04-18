@@ -19,7 +19,7 @@
       if (half.cardType.type === currentFilter) return half;
     })
     .sort((a, b) => {
-      if (!sortPassives) return 0; // Keep default order when sortPassive is false
+      if (!sortPassives) return 0;
       return Number(a.cardType.passive) - Number(b.cardType.passive);
     });
 
